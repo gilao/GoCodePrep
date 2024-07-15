@@ -68,6 +68,8 @@
 [27.Go中init 函数的特征](01-基础部分\27.Go中init 函数的特征.md)
 ## 28.Go中 uintptr和 unsafe.Pointer 的区别
 [28.Go中 uintptr和 unsafe.Pointer 的区别](01-基础部分\28.Go中 uintptr和 unsafe.Pointer 的区别.md)
+## 29.Go程序如何优雅退出进程
+[29.Go程序如何优雅退出进程](01-基础部分\29.Go程序如何优雅退出进程.md)
 # 02-slice
 ## 1.数组和切片的区别
 [1.数组和切片的区别](02-slice\1.数组和切片的区别.md)
