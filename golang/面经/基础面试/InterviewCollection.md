@@ -659,6 +659,22 @@ Go语言的`sync`包提供了用于解决并发问题的同步原语，帮助开
 
 `sync`包中的这些工具和结构共同构成了Go语言中处理并发和同步问题的基础，使开发者能够编写出高效且安全的并发程序。使用这些同步原语，可以有效地避免竞态条件、死锁和其他并发问题。
 
+## 32、值类型和引用类型
+
+### 值类型：
+
+基本数据类型都是值类型，包括：int系列，float 系列，bool，string，数组，结构体struct
+
+### 引用类型
+
+指针、切片Slice、接口interface、管道 channel以及 map
+
+### 值类型与引用类型的区别
+
+值类型在内存种存储的是值本身，而引用类型在内存中存储的是值的内存地址。
+
+值类型内存通常在栈中分配，引用类型内存通常在堆中分配。
+
 # 02-slice
 
 ## 1.数组和切片的区别
@@ -2643,7 +2659,7 @@ Go 的内存分配机制旨在平衡速度和内存效率，通过线程本地�
 
 ## 1、Gin
 
-## 1、Gin框架如何进行参数校验的？
+## 1-1、Gin框架如何进行参数校验的？
 
 Gin 是一个用 Go 语言编写的高性能 Web 框架，它提供了多种方式来进行 HTTP 请求参数的校验。在 Gin 中，最常用和推荐的方式是使用 `binding` 包来校验绑定到结构体的请求数据。`binding` 包通常与第三方库 `github.com/go-playground/validator/v10` 结合使用，该库提供了强大的验证规则和自定义验证功能。
 
@@ -2714,7 +2730,7 @@ func main() {
 
 以上就是在 Gin 框架中进行参数校验的基本步骤。你可以根据需求调整结构体和验证规则，以及处理错误的逻辑。此外，`validator` 包还支持自定义验证函数和国际化错误消息等功能，可以根据具体需求进一步定制。
 
-## 2、Gin框架的http方法如何实现的
+## 1-2、Gin框架的http方法如何实现的
 
 Gin框架是一个用Go语言编写的高性能Web框架，它提供了一种简洁且直观的方式来构建RESTful API和Web应用程序。Gin框架的核心功能之一是路由和HTTP方法的绑定，这使得开发者能够轻松地处理不同的HTTP请求。
 
@@ -2789,15 +2805,174 @@ router.Use(gin.Logger(), gin.Recovery())
 ### 总结
 Gin框架通过`gin.Engine`和`gin.RouterGroup`提供了灵活的路由和HTTP方法绑定机制。
 
-## 3、Gin框架的tag有哪些
+## 1-3、Gin框架的tag有哪些
 
 ## 2.go-zero
 
-## 3.字节 CloudWeGo
+## 2-1 Go-Zero 是什么？它的主要功能是什么？它与其他Go框架有什么不同？
 
-## 4.HTTP Hertz
+**Go-Zero 是什么？**  
+Go-Zero（或写作 go-zero）是一个由社区驱动的 Go 语言高性能、高可用性微服务框架，专注于简化分布式系统的开发流程。它的设计目标是提供一套开箱即用的工具链和最佳实践，帮助开发者快速构建稳定、高效的微服务应用。
 
-## 5.RPC Kitex
+---
+
+**主要功能**  
+1. **微服务核心组件**  
+   - 内置 **API 网关**、**RPC 服务**（基于 gRPC）、定时任务、异步队列等功能，支持服务注册与发现、负载均衡、熔断限流等微服务治理能力。  
+   - 提供 **ETCD** 作为默认服务发现组件，同时支持自定义扩展。
+
+2. **高性能与高并发**  
+   - 通过优化的 **I/O 多路复用**（如基于 epoll/kqueue）和精简的中间件设计，实现低延迟和高吞吐量。  
+   - 独创的 **“自适应熔断”** 机制，动态调整服务保护策略。
+
+3. **代码生成工具（goctl）**  
+   - 通过定义 API 和 RPC 的声明式配置文件（`.api` 和 `.proto`），自动生成项目骨架、CRUD 代码、Swagger 文档等，显著减少重复劳动。  
+   - 支持一键生成 Dockerfile 和 Kubernetes 部署文件，简化运维。
+
+4. **数据层优化**  
+   - 内置 **缓存管理**（Cache-Aside 模式）和 **分布式事务** 支持，提供与数据库（如 MySQL、MongoDB）无缝集成的 ORM 工具。
+
+5. **可观测性**  
+   - 集成链路追踪（如 Jaeger）、指标监控（Prometheus）和日志聚合，方便故障排查与性能分析。
+
+---
+
+**与其他 Go 框架的差异**  
+1. **定位不同**  
+   - **Gin/ Echo**：轻量级 HTTP 框架，聚焦路由和中间件，微服务需自行集成其他组件。  
+   - **Go-Zero**：一站式微服务框架，内置服务治理、代码生成等企业级功能，适合复杂分布式系统。
+
+2. **开发效率**  
+   - **Beego/ Revel**：全栈框架，但代码生成和微服务支持较弱。  
+   - **Go-Zero**：通过 `goctl` 工具链实现“协议即文档，文档即代码”，提升开发速度，降低维护成本。
+
+3. **性能优化**  
+   - 相比通用框架，Go-Zero 在 **网络 I/O**、**序列化**（如 JSON 编码）等关键路径深度优化，性能对标一线大厂标准（如字节跳动 Go 框架）。
+
+4. **工程化实践**  
+   - 提供从开发到部署的完整工具链（如 API 版本管理、灰度发布支持），强调“约定大于配置”，减少团队协作中的风格分歧。
+
+---
+
+**总结**  
+Go-Zero 的核心竞争力在于 **“工程化+性能”双引擎驱动**。它不仅是框架，更是微服务开发的最佳实践集合，尤其适合中大型团队快速构建高可靠、易维护的分布式系统。其代码生成和内置治理能力，显著降低了微服务的开发门槛，同时保持了 Go 语言原生的高效特性。
+
+
+
+
+
+## 3.Echo
+
+
+
+## 4.GoFrame
+
+
+
+## 5. Gorm
+
+## 5-1 GORM 如何实现一对多和多对多关系的映射
+
+对于一对多关系，可以使用GORM 的BelongsTo 和HasMany 方法实现映射。比如：
+
+```
+type User struct {
+    ID        uint
+    Name      string
+    Addresses []Address
+}
+
+type Address struct {
+    ID      uint
+    UserID  uint
+    Address string
+}
+
+// User 模型对应的表应该包含一个外键，指向 Address 表中的 UserID 字段
+// 使用 BelongsTo 和 HasMany 方法进行关联
+func (u *User) Addresses() []Address {
+    var addresses []Address
+    DB.Model(&u).Association("Addresses").Find(&addresses)
+    return addresses
+}
+
+func (a *Address) User() User {
+    var user User
+    DB.Model(&a).Association("User").Find(&user)
+    return user
+}
+```
+
+对于多对多关系，可以使用GORM 的ManyToMany 方法实现映射。比如：
+
+```
+type User struct {
+    ID       uint
+    Name     string
+    Articles []Article `gorm:"many2many:user_articles"`
+}
+
+type Article struct {
+    ID      uint
+    Title   string
+    Content string
+    Users   []User `gorm:"many2many:user_articles"`
+}
+// User 和 Article 之间的关系通过 user_articles 表进行映射
+```
+
+## 5-2. 在使用 GORM 进行数据库查询时，如何避免 N + 1 查询的问题
+
+N+1 查询问题指的是在查询关联表时，如果使用了嵌套循环进行查询，就会产生大量的 SQL 查询。为了避免这个问题，可以使用 GORM 的 Preload 方法预先加载关联数据。比如：
+
+```
+// 查询 Users 以及它们的 Addresses
+var users []User
+DB.Preload("Addresses").Find(&users)
+```
+
+这个查询会一次性加载所有 User 和 Address 数据，避免了 N+1 查询问题。
+
+## 5-3. 如何使用GORM 进行事务管理
+
+GORM 的事务管理使用 Begin、Commit 和 Rollback 方法实现。比如：
+
+```
+tx := DB.Begin()
+defer func() {
+    if r := recover(); r != nil {
+        tx.Rollback()
+    }
+}()
+
+// 在事务中执行一系列操作
+if err := tx.Create(&user).Error; err != nil {
+    tx.Rollback()
+    return err
+}
+
+if err := tx.Create(&address).Error; err != nil {
+    tx.Rollback()
+    return err
+}
+
+// 提交事务
+tx.Commit()
+```
+
+## 5-4. GORM 的 Preload 方法和Joins方法有什么区别？在什么情况下使用哪种方法更好
+
+Preload 方法是在查询时预加载关联数据，而 Joins 方法是通过 SQL JOIN 语句连接多个表查询数据。**Preload 方法适用于关联表较少、数据量不大的情况；而 Joins 方法适用于关联表较多、数据量较大的情况。**
+
+## 6. Kratos
+
+
+
+## 7.字节 CloudWeGo
+
+## 8.HTTP Hertz
+
+## 9.RPC Kitex
 
 
 
